@@ -1,12 +1,17 @@
 name: hola-mundo
 on: [push]
+jobs:
   setup-run-java:
-  runs-on: ubuntu-latest
-  steps:
-  - uses: actions/checkout@v3
-  - uses: actions/setup-java@v3
-    with:
-      distribution: 'oracle'
-      java-version: '17'
-  - run: java -cp java HelloWorld.java
+    name: imprimir hola mundo
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3
+    - name: setup java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'oracle'
+        java-version: '17'
+    - name: run java
+      run: java -cp java HelloWorld.java
   
