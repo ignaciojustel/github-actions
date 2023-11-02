@@ -1,5 +1,7 @@
 public class HelloWorld {
     public static void main(String[] args) {
-        System.out.println("Hola, Mundo!");
+        String username = System.getenv("USERNAME");
+        
+        System.out.println("Bienvenido " + username + ".\nHola, Mundo!");
     }
 }
