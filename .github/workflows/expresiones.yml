@@ -6,7 +6,7 @@ on:
       edad:
         description: 'Ingrese su edad'
         required: true
-        type: integer
+        type: string
       nombre:
         description: Ingrese su nombre
         required: true
