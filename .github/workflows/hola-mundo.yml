@@ -1,17 +1,20 @@
 name: hola-mundo
+run-name: Hola mundo - step 1
 on: [push]
 jobs:
   setup-run-java:
-    name: imprimir hola mundo
+    name: Imprimir hola mundo
     runs-on: ubuntu-latest
     steps:
-    - name: checkout
+    - name: Checkout
       uses: actions/checkout@v3
-    - name: setup java
+    - name: Setup Java
       uses: actions/setup-java@v3
       with:
         distribution: 'oracle'
         java-version: '17'
-    - name: run java
+    - name: Definir variable
+      run: echo "USERNAME=${{ github.actor }}" >> $GITHUB_ENV
+    - name: Run Java
       run: java -cp java HelloWorld.java
   
