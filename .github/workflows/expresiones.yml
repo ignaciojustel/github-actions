@@ -1,0 +1,43 @@
+name: Expresiones
+run-name: Usando expresiones
+on:
+  workflow_dispatch:
+    inputs:
+      edad:
+        description: 'Ingrese su edad'
+        required: true
+        type: integer
+      nombre:
+        description: Ingrese su nombre
+        required: true
+        default: Nacho
+        type: string
+      nacionalidad:
+        description: Ingrese su país de nacimiento
+        required: true
+        type: string
+jobs:
+  mayor:
+    if: ${{ inputs.edad >= 18 }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Correr script
+        run: echo ${{ inputs.nombre }} es mayor de edad
+  menor: 
+    if: ${{ inputs.edad < 18 }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Correr script
+        run: echo ${{ inputs.nombre }} es menor de edad
+  suscripcion_no:
+    if: ${{ inputs.nacionalidad != Argentina }}
+    runs-on: ubuntu-latest
+    steps: 
+      - name: correr script
+        run: echo ${{ inputs.nacionalidad}} no es un país apto para la suscripción.
+  suscripcion_si:
+    if: ${{ inputs.nacionalidad == Argentina }}
+    runs-on: ubuntu-latest
+    steps: 
+      - name: correr script
+        run: echo ${{ inputs.nacionalidad}} sí es un país apto para la suscripción.      

@@ -1,0 +1,67 @@
+name: Triggers
+run-name: Aprendiendo diferentes Triggers
+on:
+  push:
+    branches:
+      - main
+      - aprendiendo-github-actions
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - '**.java'
+      - '**.py'
+  issues:
+    types:
+      - labeled
+  workflow_dispatch:
+    inputs:
+      nombre:
+        description: 'Tu nombre'
+        required: true
+        default: Nacho
+        type: string
+      ciudad:
+        description: 'Ciudad'
+        required: true
+        type: string
+      lenguaje_favorito:
+        description: 'Lenguaje favorito'
+        default: Java
+        required: true
+        type: choice
+        options:
+        - Java
+        - Go
+        - Javascript
+        - Python
+  schedule:
+    - cron: '15 15 2 11 *'
+jobs:
+  hola-mundo-manual:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Definir nombre
+        run: echo "USERNAME=${{ inputs.nombre }}" >> $GITHUB_ENV
+      - name: Definir ciudad
+        run: echo "CITY=${{ inputs.ciudad }}" >> $GITHUB_ENV
+      - name: Definir un lenguaje
+        run: echo "LANGUAGE=${{ inputs.lenguaje_favorito }}" >> GITHUB_ENV
+      - name: Correr script
+        run: python hola_lenguaje.py
+  hola-mundo:
+    if: ${{ github.event_name != 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'oracle'
+          java-version: '17'
+      - name: Definir variable
+        run: echo "USERNAME=${{ github.actor }}" >> $GITHUB_ENV
+      - name: run java
+        run: java -cp java HelloWorld.java
